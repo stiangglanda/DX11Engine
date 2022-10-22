@@ -56,20 +56,20 @@ void Scene::ShowComponents(const Camera& Cam)
     if (ImGui::BeginPopup("Add Component")) {
         ImGui::TextUnformatted("Available:");
         ImGui::Separator();
-        if (!registry.has<component::Name>(static_cast<entt::entity>(selected)))
+        if (!registry.any_of<component::Name>(static_cast<entt::entity>(selected)))
         {
             if (ImGui::Selectable(component::components[0])) {
                 registry.emplace<component::Name>(static_cast<entt::entity>(selected), "New Entity");
             }
         }
-        if (!registry.has<component::Shape>(static_cast<entt::entity>(selected)))
+        if (!registry.any_of<component::Shape>(static_cast<entt::entity>(selected)))
         {
             if (ImGui::Selectable(component::components[1])) {
                 registry.emplace<component::Shape>(static_cast<entt::entity>(selected));
 				BuildCrateGeometryBuffers();
             }
         }
-        if (!registry.has<component::Transform>(static_cast<entt::entity>(selected)))
+        if (!registry.any_of<component::Transform>(static_cast<entt::entity>(selected)))
         {
             if (ImGui::Selectable(component::components[2])) {
                 DirectX::XMFLOAT4X4 tmp;
@@ -87,7 +87,7 @@ void Scene::ShowComponents(const Camera& Cam)
 		//		registry.emplace<component::Transform>(static_cast<entt::entity>(selected), "New Entity");
 		//	}
 		//}
-		if (!registry.has<component::RigidPhysics>(static_cast<entt::entity>(selected)))
+		if (!registry.any_of<component::RigidPhysics>(static_cast<entt::entity>(selected)))
 		{
 			if (ImGui::Selectable(component::components[4])) {
 				PxRigidDynamic* prd;
@@ -109,7 +109,7 @@ void Scene::ShowComponents(const Camera& Cam)
         ImGui::EndPopup();
     }
 
-    if (registry.has<component::Name>(static_cast<entt::entity>(selected)))
+    if (registry.any_of<component::Name>(static_cast<entt::entity>(selected)))
     {
         if (ImGui::CollapsingHeader("Name"))
         {
@@ -126,7 +126,7 @@ void Scene::ShowComponents(const Camera& Cam)
         }
     }
 
-    if (registry.has<component::Shape>(static_cast<entt::entity>(selected)))
+    if (registry.any_of<component::Shape>(static_cast<entt::entity>(selected)))
     {
         if (ImGui::CollapsingHeader("Shape"))
         {
@@ -137,7 +137,7 @@ void Scene::ShowComponents(const Camera& Cam)
         }
     }
 
-    if (registry.has<component::Transform>(static_cast<entt::entity>(selected)))
+    if (registry.any_of<component::Transform>(static_cast<entt::entity>(selected)))
     {
         if (ImGui::CollapsingHeader("Transform"))
         {
@@ -152,7 +152,7 @@ void Scene::ShowComponents(const Camera& Cam)
 	//	}
 	//}
 
-	if (registry.has<component::RigidPhysics>(static_cast<entt::entity>(selected)))
+	if (registry.any_of<component::RigidPhysics>(static_cast<entt::entity>(selected)))
 	{
 		if (ImGui::CollapsingHeader("Physics"))
 		{

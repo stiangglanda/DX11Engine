@@ -9,6 +9,7 @@
 //      Press '1' for wireframe
 //
 //***************************************************************************************
+
 #include "PxPhysicsAPI.h"
 #include "d3dApp.h"
 #include "d3dx11Effect.h"
@@ -38,6 +39,7 @@
 #include "imgui/imguizmo/ImGuizmo.h"
 #include "imgui/imgui/imgui_internal.h"
 #include "Scene.h"
+#include "entt/entt.hpp"
 
 struct BoundingSphere
 {
@@ -476,7 +478,7 @@ bool SkinnedMeshApp::Init()
 	mCharacterInstance2.FinalTransforms.resize(mCharacterModel->SkinnedData.BoneCount());
 
 	mAssimpModel = new AssimpModel();
-	mAssimpModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\Wolf Rigged and Game Ready\\Wolf_dae.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
+	mAssimpModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\Wolf_dae.dae", L"C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\textures\\");
 
 	mSkelAssimpModel = new SkinnedMesh();
 	//AnimatedModelLoader* mAssimpSkelModelLoader;
@@ -485,7 +487,7 @@ bool SkinnedMeshApp::Init()
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\ogldev-source\\Content\\boblampclean.md5mesh", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\fbx\\Handgun_fbx_6.1_ASCII.fbx", L"D:\\Downloads\\fbx\\textures\\");
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\Wolf Rigged and Game Ready\\Wolf_dae.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
-	mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\DirectX11_Tests\\DirectX11_Tests\\MyGame\\Models\\model.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
+	mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\Editor\\MyGame\\Models\\model.dae", L"C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\textures\\");
 	//ret= mAssimpSkelModelLoader->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\OpenGL-Animation\\Resources\\res\\model.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
 	//mAssimpSkelModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\ritchardsoft\\DX11\\SkinnedModels\\Models\\magician.X", L"C:\\mydev\\ritchardsoft\\DX11\\SkinnedModels\\Textures\\");
 	// 
@@ -1922,7 +1924,7 @@ void SkinnedMeshApp::DrawSceneToShadowMap()
 		{
 			auto& shap = rview.get<component::Shape>(entity);
 			auto& trans = rview.get<component::Transform>(entity);
-			if (scn.registry.has<component::RigidPhysics>(entity) && scn.registry.get<component::RigidPhysics>(entity).enablePhx)
+			if (scn.registry.any_of<component::RigidPhysics>(entity) && scn.registry.get<component::RigidPhysics>(entity).enablePhx)
 			{
 				//scn.physic[entt::to_integral<entt::entity>(entity)]
 
