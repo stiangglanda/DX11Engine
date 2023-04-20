@@ -78,6 +78,23 @@ void Scene::ShowComponents(const Camera& Cam)
                 registry.emplace<component::Transform>(static_cast<entt::entity>(selected), tmp);
             }
         }
+		if (!registry.any_of<component::StaticModel>(static_cast<entt::entity>(selected)))
+		{
+			if (ImGui::Selectable(component::components[3])) {
+				AssimpModel mAssimpModel;
+				mAssimpModel.Load(md3dDevice, md3dImmediateContext, mTexMgr, "Models\\Wolf\\Wolf_dae.dae", L"Models\\Wolf\\textures\\");
+
+				registry.emplace<component::StaticModel>(static_cast<entt::entity>(selected), mAssimpModel);
+			}
+		}
+	/*	if (!registry.any_of<component::SkeletalModel>(static_cast<entt::entity>(selected)))
+		{
+			if (ImGui::Selectable(component::components[5])) {
+				SkinnedMesh mModel;
+
+				registry.emplace<component::SkeletalModel>(static_cast<entt::entity>(selected), mModel);
+			}
+		}*/
 		//if (!registry.has<component::Cskinnedmesh>(static_cast<entt::entity>(selected)))
 		//{
 		//	if (ImGui::Selectable(component::components[3])) {
@@ -145,6 +162,52 @@ void Scene::ShowComponents(const Camera& Cam)
         }
     }
 
+	if (registry.any_of<component::StaticModel>(static_cast<entt::entity>(selected)))
+	{
+		if (ImGui::CollapsingHeader("Static Model"))
+		{
+			static char str0[128];
+			ImGui::InputText("Model", str0, IM_ARRAYSIZE(str0));
+			static char str1[128];
+			ImGui::InputText("Texture", str1, IM_ARRAYSIZE(str1));
+
+			if (ImGui::Button("Save"))
+			{
+				std::string modelp(str0);
+				std::string texturep(str1);
+				std::wstring wstexturep(texturep.begin(), texturep.end());
+				AssimpModel mAssimpModel;
+				mAssimpModel.Load(md3dDevice, md3dImmediateContext, mTexMgr, modelp, wstexturep);
+
+
+				auto& mo = registry.get<component::StaticModel>(static_cast<entt::entity>(selected));
+				mo.model = mAssimpModel;
+				//registry.emplace<component::SkeletalModel>(static_cast<entt::entity>(selected), mAssimpModel);
+			}
+		}
+	}
+
+	//if (registry.any_of<component::SkeletalModel>(static_cast<entt::entity>(selected)))
+	//{
+	//	if (ImGui::CollapsingHeader("Skeletal Model"))
+	//	{
+	//		static char str0[128];
+	//		ImGui::InputText("Model", str0, IM_ARRAYSIZE(str0));
+	//		static char str1[128];
+	//		ImGui::InputText("Texture", str1, IM_ARRAYSIZE(str1));
+
+	//		if (ImGui::Button("Save"))
+	//		{
+	//			std::string modelp(str0);
+	//			std::string texturep(str1);
+	//			std::wstring wstexturep(texturep.begin(), texturep.end());
+
+	//			auto& mo = registry.get<component::SkeletalModel>(static_cast<entt::entity>(selected));
+	//			mo.skelmodel.LoadMesh(md3dDevice, md3dImmediateContext, mTexMgr, modelp, wstexturep);
+	//			//registry.emplace<component::SkeletalModel>(static_cast<entt::entity>(selected), mAssimpModel);
+	//		}
+	//	}
+	//}
 	//if (registry.has<component::Cskinnedmesh>(static_cast<entt::entity>(selected)))
 	//{
 	//	if (ImGui::CollapsingHeader("SkinnedMesh"))
@@ -173,9 +236,11 @@ Scene::Scene()
     camDistance = 8.f;
 }
 
-void Scene::Init(ID3D11Device* Md3dDevice, std::shared_ptr<Physics> Phx)
+void Scene::Init(ID3D11Device* Md3dDevice, ID3D11DeviceContext* Md3dImmediateContext, TextureMgr* TexMgr, std::shared_ptr<Physics> Phx)
 {
 	md3dDevice = Md3dDevice;
+	md3dImmediateContext = Md3dImmediateContext;
+	mTexMgr= TexMgr;
 	phx = Phx;
 }
 

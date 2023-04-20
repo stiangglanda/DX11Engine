@@ -14,7 +14,7 @@ class Scene
 {
 public:
 	void ShowEntityList(const Camera& Cam);
-	void Init(ID3D11Device* md3dDevice, std::shared_ptr<Physics> phx);
+	void Init(ID3D11Device* Md3dDevice, ID3D11DeviceContext* Md3dImmediateContext, TextureMgr* TexMgr, std::shared_ptr<Physics> phx);
 	entt::registry registry;
 	std::map<int, PxRigidDynamic*> physic;
 	Scene();
@@ -24,6 +24,8 @@ private:
 	void ShowGuizmo(const Camera& Cam);
 	void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition);
 	ID3D11Device* md3dDevice;
+	TextureMgr* mTexMgr;
+	ID3D11DeviceContext* md3dImmediateContext;
 	std::shared_ptr<Physics> phx;
 	int selected;
 	bool mShowComponents;

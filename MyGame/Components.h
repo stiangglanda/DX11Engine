@@ -7,7 +7,7 @@
 
 namespace component
 {
-    static const char* components[] = { "Name","Shape","Transform","SkinnedMesh","Physics" };
+    static const char* components[] = { "Name","Shape","Transform","Static Model","Physics","Skeletal Model" };
 
 
     struct Name
@@ -15,20 +15,25 @@ namespace component
         std::string name;
     };
 
+    struct Shape
+    {
+        ID3D11Buffer* ShapeVB;
+        ID3D11Buffer* ShapeIB;
+    };
+
     struct Transform
     {
         DirectX::XMFLOAT4X4 Transform;
     };
 
-    struct Shape
+    struct StaticModel
     {
-        ID3D11Buffer* ShapeVB;
-        ID3D11Buffer* ShapeIB;
-    }; 
-    
-    struct Cskinnedmesh
+        AssimpModel model;
+    };
+
+    struct SkeletalModel
     {
-        std::string skinnedMesh;
+        SkinnedMesh skelmodel;
     };
 
     struct RigidPhysics

@@ -48,123 +48,7 @@ struct BoundingSphere
 	float Radius;
 };
 
-//bool useWindow;
-//float camDistance = 8.f;
-//static ImGuizmo::OPERATION mCurrentGizmoOperation(ImGuizmo::TRANSLATE);
-//
-//static const float identityMatrix[16] =
-//{ 1.f, 0.f, 0.f, 0.f,
-//	0.f, 1.f, 0.f, 0.f,
-//	0.f, 0.f, 1.f, 0.f,
-//	0.f, 0.f, 0.f, 1.f };
-//
-//void EditTransform(float* cameraView, float* cameraProjection, float* matrix, bool editTransformDecomposition)
-//{
-//	static ImGuizmo::MODE mCurrentGizmoMode(ImGuizmo::LOCAL);
-//	static bool useSnap = false;
-//	static float snap[3] = { 1.f, 1.f, 1.f };
-//	static float bounds[] = { -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f };
-//	static float boundsSnap[] = { 0.1f, 0.1f, 0.1f };
-//	static bool boundSizing = false;
-//	static bool boundSizingSnap = false;
-//
-//	if (editTransformDecomposition)
-//	{
-//		if (ImGui::IsKeyPressed(90))
-//			mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
-//		if (ImGui::IsKeyPressed(69))
-//			mCurrentGizmoOperation = ImGuizmo::ROTATE;
-//		if (ImGui::IsKeyPressed(82)) // r Key
-//			mCurrentGizmoOperation = ImGuizmo::SCALE;
-//		if (ImGui::RadioButton("Translate", mCurrentGizmoOperation == ImGuizmo::TRANSLATE))
-//			mCurrentGizmoOperation = ImGuizmo::TRANSLATE;
-//		ImGui::SameLine();
-//		if (ImGui::RadioButton("Rotate", mCurrentGizmoOperation == ImGuizmo::ROTATE))
-//			mCurrentGizmoOperation = ImGuizmo::ROTATE;
-//		ImGui::SameLine();
-//		if (ImGui::RadioButton("Scale", mCurrentGizmoOperation == ImGuizmo::SCALE))
-//			mCurrentGizmoOperation = ImGuizmo::SCALE;
-//		if (ImGui::RadioButton("Universal", mCurrentGizmoOperation == ImGuizmo::UNIVERSAL))
-//			mCurrentGizmoOperation = ImGuizmo::UNIVERSAL;
-//		float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-//		ImGuizmo::DecomposeMatrixToComponents(matrix, matrixTranslation, matrixRotation, matrixScale);
-//		ImGui::InputFloat3("Tr", matrixTranslation);
-//		ImGui::InputFloat3("Rt", matrixRotation);
-//		ImGui::InputFloat3("Sc", matrixScale);
-//		ImGuizmo::RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, matrix);
-//
-//		if (mCurrentGizmoOperation != ImGuizmo::SCALE)
-//		{
-//			if (ImGui::RadioButton("Local", mCurrentGizmoMode == ImGuizmo::LOCAL))
-//				mCurrentGizmoMode = ImGuizmo::LOCAL;
-//			ImGui::SameLine();
-//			if (ImGui::RadioButton("World", mCurrentGizmoMode == ImGuizmo::WORLD))
-//				mCurrentGizmoMode = ImGuizmo::WORLD;
-//		}
-//		if (ImGui::IsKeyPressed(83))
-//			useSnap = !useSnap;
-//		//ImGui::Checkbox("", &useSnap);
-//		ImGui::SameLine();
-//
-//		switch (mCurrentGizmoOperation)
-//		{
-//		case ImGuizmo::TRANSLATE:
-//			ImGui::InputFloat3("Snap", &snap[0]);
-//			break;
-//		case ImGuizmo::ROTATE:
-//			ImGui::InputFloat("Angle Snap", &snap[0]);
-//			break;
-//		case ImGuizmo::SCALE:
-//			ImGui::InputFloat("Scale Snap", &snap[0]);
-//			break;
-//		}
-//		ImGui::Checkbox("Bound Sizing", &boundSizing);
-//		if (boundSizing)
-//		{
-//			ImGui::PushID(3);
-//			ImGui::Checkbox("", &boundSizingSnap);
-//			ImGui::SameLine();
-//			ImGui::InputFloat3("Snap", boundsSnap);
-//			ImGui::PopID();
-//		}
-//	}
-//
-//	ImGuiIO& io = ImGui::GetIO();
-//	float viewManipulateRight = io.DisplaySize.x;
-//	float viewManipulateTop = 0;
-//	static ImGuiWindowFlags gizmoWindowFlags = 0;
-//	if (useWindow)
-//	{
-//		ImGui::SetNextWindowSize(ImVec2(800, 400), ImGuiCond_Appearing);
-//		ImGui::SetNextWindowPos(ImVec2(400, 20), ImGuiCond_Appearing);
-//		ImGui::PushStyleColor(ImGuiCol_WindowBg, (ImVec4)ImColor(0.35f, 0.3f, 0.3f));
-//		ImGui::Begin("Gizmo", 0, gizmoWindowFlags);
-//		ImGuizmo::SetDrawlist();
-//		float windowWidth = (float)ImGui::GetWindowWidth();
-//		float windowHeight = (float)ImGui::GetWindowHeight();
-//		ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
-//		viewManipulateRight = ImGui::GetWindowPos().x + windowWidth;
-//		viewManipulateTop = ImGui::GetWindowPos().y;
-//		ImGuiWindow* window = ImGui::GetCurrentWindow();
-//		gizmoWindowFlags = ImGui::IsWindowHovered() && ImGui::IsMouseHoveringRect(window->InnerRect.Min, window->InnerRect.Max) ? ImGuiWindowFlags_NoMove : 0;
-//	}
-//	else
-//	{
-//		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-//	}
-//
-//	ImGuizmo::DrawGrid(cameraView, cameraProjection, identityMatrix, 100.f);
-//	//ImGuizmo::DrawCubes(cameraView, cameraProjection, matrix, 1);//gizmoCount
-//	ImGuizmo::Manipulate(cameraView, cameraProjection, mCurrentGizmoOperation, mCurrentGizmoMode, matrix, NULL, useSnap ? &snap[0] : NULL, boundSizing ? bounds : NULL, boundSizingSnap ? boundsSnap : NULL);
-//
-//	ImGuizmo::ViewManipulate(cameraView, camDistance, ImVec2(viewManipulateRight - 128, viewManipulateTop), ImVec2(128, 128), 0x10101010);
-//
-//	if (useWindow)
-//	{
-//		ImGui::End();
-//		ImGui::PopStyleColor(1);
-//	}
-//}
+
  
 class SkinnedMeshApp : public D3DApp 
 {
@@ -452,7 +336,7 @@ bool SkinnedMeshApp::Init()
 	mSmap = new ShadowMap(md3dDevice, SMapSize, SMapSize);
 
 	mCam.SetLens(0.25f*MathHelper::Pi, AspectRatio(), 1.0f, 1000.0f);
-	scn.Init(md3dDevice,mPhx);
+	scn.Init(md3dDevice, md3dImmediateContext,&mTexMgr, mPhx);
 	mSsao = new Ssao(md3dDevice, md3dImmediateContext, mClientWidth, mClientHeight, mCam.GetFovY(), mCam.GetFarZ());
 
 	mStoneTexSRV = mTexMgr.CreateTexture(L"Textures/floor.dds");
@@ -478,7 +362,7 @@ bool SkinnedMeshApp::Init()
 	mCharacterInstance2.FinalTransforms.resize(mCharacterModel->SkinnedData.BoneCount());
 
 	mAssimpModel = new AssimpModel();
-	mAssimpModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\Wolf_dae.dae", L"C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\textures\\");
+	mAssimpModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "Models\\Wolf\\Wolf_dae.dae", L"Models\\Wolf\\textures\\");
 
 	mSkelAssimpModel = new SkinnedMesh();
 	//AnimatedModelLoader* mAssimpSkelModelLoader;
@@ -487,7 +371,7 @@ bool SkinnedMeshApp::Init()
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\ogldev-source\\Content\\boblampclean.md5mesh", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\fbx\\Handgun_fbx_6.1_ASCII.fbx", L"D:\\Downloads\\fbx\\textures\\");
 	//mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "D:\\Downloads\\Wolf Rigged and Game Ready\\Wolf_dae.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
-	mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\Editor\\MyGame\\Models\\model.dae", L"C:\\mydev\\Editor\\MyGame\\Models\\Wolf Rigged and Game Ready\\textures\\");
+	mSkelAssimpModel->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "..\\MyGame\\Models\\model.dae", L"..\\MyGame\\Models\\Wolf Rigged and Game Ready\\textures\\");
 	//ret= mAssimpSkelModelLoader->LoadMesh(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\OpenGL-Animation\\Resources\\res\\model.dae", L"D:\\Downloads\\Wolf Rigged and Game Ready\\textures\\");
 	//mAssimpSkelModel->Load(md3dDevice, md3dImmediateContext, &mTexMgr, "C:\\mydev\\ritchardsoft\\DX11\\SkinnedModels\\Models\\magician.X", L"C:\\mydev\\ritchardsoft\\DX11\\SkinnedModels\\Textures\\");
 	// 
@@ -1001,6 +885,48 @@ void SkinnedMeshApp::DrawScene()
 
 			mAssimpModel->meshes[subset].Draw(md3dImmediateContext, activeTech, false);
 		}
+
+
+			auto rview = scn.registry.view<component::StaticModel, component::Transform>();
+			for (auto entity : rview)
+			{
+				auto& skel = rview.get<component::StaticModel>(entity);
+				auto& trans = rview.get<component::Transform>(entity);
+
+
+				// Draw the box.
+				world = XMLoadFloat4x4(&trans.Transform);
+				worldInvTranspose = MathHelper::InverseTranspose(world);
+				worldViewProj = world * view * proj;
+
+				Effects::NormalMapFX->SetWorld(world);
+				Effects::NormalMapFX->SetWorldInvTranspose(worldInvTranspose);
+				Effects::NormalMapFX->SetWorldViewProj(worldViewProj);
+				Effects::NormalMapFX->SetWorldViewProjTex(worldViewProj * toTexSpace);
+				Effects::NormalMapFX->SetShadowTransform(world * shadowTransform);
+				//Effects::NormalMapFX->SetTexTransform(XMMatrixScaling(2.0f, 1.0f, 1.0f));
+				Effects::NormalMapFX->SetMaterial(mBoxMat);
+
+				for (UINT subset = 0; subset < skel.model.meshes.size(); ++subset)
+				{
+					//Effects::NormalMapFX->SetMaterial(mAssimpModel->meshes[subset].Mat[0]);
+					//Effects::NormalMapFX->SetDiffuseMap(mAssimpModel->meshes[subset].DiffuseMapSRV[0]);
+					if (skel.model.meshes[subset].DiffuseMapSRV.empty() == false)
+					{
+						Effects::NormalMapFX->SetDiffuseMap(skel.model.meshes[subset].DiffuseMapSRV[0]);
+					}
+
+					if (skel.model.meshes[subset].NormalMapSRV.empty() == false)
+					{
+						Effects::NormalMapFX->SetNormalMap(skel.model.meshes[subset].NormalMapSRV[0]);
+					}
+					
+					activeTech->GetPassByIndex(p)->Apply(0, md3dImmediateContext);
+
+					skel.model.meshes[subset].Draw(md3dImmediateContext, activeTech, false);
+				}
+			}
+		
 
 		// draw bullets
 		for (size_t i = 0; i < bulletVector.size(); i++)
@@ -1648,6 +1574,38 @@ void SkinnedMeshApp::DrawSceneToSsaoNormalDepthMap()
 			mAssimpModel->meshes[subset].Draw(md3dImmediateContext, tech, false);
 		}
     }
+
+	for (UINT p = 0; p < techDesc.Passes; ++p)
+	{
+		auto rview = scn.registry.view<component::StaticModel, component::Transform>();
+		for (auto entity : rview)
+		{
+			auto& skel = rview.get<component::StaticModel>(entity);
+			auto& trans = rview.get<component::Transform>(entity);
+
+			// Draw the box.
+			world = XMLoadFloat4x4(&trans.Transform);
+			worldInvTranspose = MathHelper::InverseTranspose(world);
+			worldView = world * view;
+			worldInvTransposeView = worldInvTranspose * view;
+			worldViewProj = world * view * proj;
+
+			Effects::SsaoNormalDepthFX->SetWorldView(worldView);
+			Effects::SsaoNormalDepthFX->SetWorldInvTransposeView(worldInvTransposeView);
+			Effects::SsaoNormalDepthFX->SetWorldViewProj(worldViewProj);
+			Effects::SsaoNormalDepthFX->SetTexTransform(XMMatrixScaling(2.0f, 1.0f, 1.0f));
+
+			for (UINT subset = 0; subset < skel.model.meshes.size(); ++subset)
+			{
+				//Effects::NormalMapFX->SetMaterial(mAssimpModel->Mat[subset]);
+				//Effects::SsaoNormalDepthFX->SetDiffuseMap(mAssimpModel->meshes[subset].DiffuseMapSRV[0]);
+				//Effects::NormalMapFX->SetNormalMap(mAssimpModel->NormalMapSRV[subset]);
+				tech->GetPassByIndex(p)->Apply(0, md3dImmediateContext);
+
+				skel.model.meshes[subset].Draw(md3dImmediateContext, tech, false);
+			}
+		}
+	}
 	//
 	// Draw the skull.
 	//
@@ -2104,6 +2062,36 @@ void SkinnedMeshApp::DrawSceneToShadowMap()
 			mAssimpModel->meshes[subset].Draw(md3dImmediateContext, smapTech, false);
 		}
     }
+
+	for (UINT p = 0; p < techDesc.Passes; ++p)
+	{
+		auto rview = scn.registry.view<component::StaticModel, component::Transform>();
+		for (auto entity : rview)
+		{
+			auto& trans = rview.get<component::Transform>(entity);
+			auto& skel = rview.get<component::StaticModel>(entity);
+			
+			// Draw the box.
+			world = XMLoadFloat4x4(&trans.Transform);
+			worldInvTranspose = MathHelper::InverseTranspose(world);
+			worldViewProj = world * view * proj;
+
+			Effects::BuildShadowMapFX->SetWorld(world);
+			Effects::BuildShadowMapFX->SetWorldInvTranspose(worldInvTranspose);
+			Effects::BuildShadowMapFX->SetWorldViewProj(worldViewProj);
+			Effects::BuildShadowMapFX->SetTexTransform(XMMatrixScaling(2.0f, 1.0f, 1.0f));
+
+			for (UINT subset = 0; subset < skel.model.meshes.size(); ++subset)
+			{
+				//Effects::NormalMapFX->SetMaterial(mAssimpModel->Mat[subset]);
+				//Effects::BuildShadowMapFX->SetDiffuseMap(mAssimpModel->meshes[subset].DiffuseMapSRV[0]);
+				//Effects::NormalMapFX->SetNormalMap(mAssimpModel->NormalMapSRV[subset]);
+				smapTech->GetPassByIndex(p)->Apply(0, md3dImmediateContext);
+
+				skel.model.meshes[subset].Draw(md3dImmediateContext, smapTech, false);
+			}
+		}
+	}
 
 	//
 	// Draw the skull.
