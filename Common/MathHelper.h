@@ -1,6 +1,4 @@
 //***************************************************************************************
-// MathHelper.h by Frank Luna (C) 2011 All Rights Reserved.
-//
 // Helper math class.
 //***************************************************************************************
 
@@ -13,7 +11,7 @@
 class MathHelper
 {
 public:
-	
+
 	static float RandF()
 	{
 		return (float)(rand()) / (float)RAND_MAX;
@@ -22,7 +20,7 @@ public:
 	// Returns random float in [a, b).
 	static float RandF(float a, float b)
 	{
-		return a + RandF()*(b-a);
+		return a + RandF() * (b - a);
 	}
 
 	template<typename T>
@@ -36,17 +34,17 @@ public:
 	{
 		return a > b ? a : b;
 	}
-	 
+
 	template<typename T>
 	static T Lerp(const T& a, const T& b, float t)
 	{
-		return a + (b-a)*t;
+		return a + (b - a) * t;
 	}
 
 	template<typename T>
 	static T Clamp(const T& x, const T& low, const T& high)
 	{
-		return x < low ? low : (x > high ? high : x); 
+		return x < low ? low : (x > high ? high : x);
 	}
 
 	// Returns the polar angle of the point (x,y) in [0, 2*PI).

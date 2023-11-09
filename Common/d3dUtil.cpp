@@ -1,7 +1,3 @@
-//***************************************************************************************
-// d3dUtil.cpp by Frank Luna (C) 2011 All Rights Reserved.
-//***************************************************************************************
-
 #include "d3dUtil.h"
 #include "DirectXTex.h"
 #include "d3dApp.h"
@@ -12,7 +8,6 @@
 #include "Effects.h"
 #include "Camera.h"
 #include "DirectXMath.h"
-//#include "DirectXHelper.h"
 using namespace DirectX;
 
 Microsoft::WRL::ComPtr<ID3DBlob> CompileShader(

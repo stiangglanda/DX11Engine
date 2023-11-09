@@ -1,10 +1,6 @@
-//***************************************************************************************
-// d3dApp.cpp by Frank Luna (C) 2011 All Rights Reserved.
-//***************************************************************************************
-
 #include "d3dApp.h"
 
-#include "../MyGame/imgui/imgui/imgui.h"
+#include "../DX11Engine/imgui/imgui/imgui.h"
 #include <WindowsX.h>
 #include <sstream>
 #include <string>

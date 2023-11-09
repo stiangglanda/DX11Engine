@@ -1,6 +1,4 @@
 //***************************************************************************************
-// d3dApp.h by Frank Luna (C) 2011 All Rights Reserved.
-//
 // Simple Direct3D demo application class.  
 // Make sure you link: d3d11.lib d3dx11d.lib D3DCompiler.lib D3DX11EffectsD.lib 
 //                     dxerr.lib dxgi.lib dxguid.lib.
