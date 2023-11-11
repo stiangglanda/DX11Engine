@@ -1,8 +1,8 @@
 # DX11Engine
 
-It is a personal game engine that currently only supports DirectX 11.
+It is a personal graphics engine that currently only supports DirectX 11.
 I developed it purely for educational purposes!
-I learned a lot during the development of this project, and I intend to use what I have learned in a new game engine that can be found here [Vulkan Engine](https://github.com/stiangglanda/VulkanEngine).
+I learned a lot during the development of this project, and I intend to use what I have learned in a new graphics engine that can be found here [Vulkan Engine](https://github.com/stiangglanda/VulkanEngine).
 The things that I intend to do differently and have partially started doing are:
 - using CMake
 - using Github actions(CI/CD)
